@@ -1,0 +1,20 @@
+name: validate image tags
+
+on:
+    push:
+        branches:
+        - main
+
+jobs:
+    image-tags-validator:
+        runs-on: ubuntu-latest
+        steps:
+            name: check image tag
+            run: |
+            IMAGE="python:3.13"
+
+            if ! docker inspect "$IMAGE"; then
+                echo "Image tag $IMAGE does not exist."
+                exit 1
+            fi
+
